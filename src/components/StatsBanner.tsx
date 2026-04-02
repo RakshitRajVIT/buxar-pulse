@@ -49,7 +49,7 @@ export default function StatsBanner() {
   }, []);
 
   return (
-    <div ref={ref} className="absolute bottom-0 left-0 right-0 z-10 glass" style={{ borderRadius: '20px 20px 0 0' }}>
+    <div ref={ref} className="glass" style={{ borderRadius: '20px 20px 0 0' }}>
       <div className="grid grid-cols-2 md:grid-cols-4 gap-0">
         {stats.map((s, i) => (
           <div

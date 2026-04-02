@@ -7,6 +7,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Index from "./pages/Index";
 import MapExplorer from "./pages/MapExplorer";
 import Services from "./pages/Services";
+import ChatBot from "./pages/ChatBot";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ function AnimatedRoutes() {
           <Route path="/" element={<Index />} />
           <Route path="/map" element={<MapExplorer />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/chat" element={<ChatBot />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </motion.div>
