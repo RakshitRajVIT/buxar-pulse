@@ -26,35 +26,23 @@ export default function HeroSection() {
   const [searchQuery, setSearchQuery] = useState('');
 
   return (
-    <div className="relative min-h-screen flex flex-col" style={{ background: '#07071A' }}>
-      {/* Particle Background - covers entire section */}
-      <div className="absolute inset-0 z-0">
-        <ParticleCanvas />
+    <div className="relative min-h-screen flex flex-col bg-[#07071A]">
+      {/* Background Video Container */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ opacity: 0.99 }}
+        >
+          <source src="/Buxar.mp4" type="video/mp4" />
+        </video>
+        {/* Dark Overlay for Readability */}
+        <div className="absolute inset-0 bg-black/40" />
       </div>
-      <div className="absolute inset-0 z-[1] grid-overlay pointer-events-none" />
-      <div className="absolute inset-0 z-[2] pointer-events-none" style={{ background: 'radial-gradient(ellipse at center, transparent 30%, #07071A 100%)' }} />
 
-      {/* Sticky Navbar */}
-      <nav className="relative z-20 flex items-center justify-between px-6 py-4" style={{ background: 'rgba(7,7,26,0.6)', backdropFilter: 'blur(20px)', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <div className="flex items-center gap-2">
-          <span className="text-xl font-black gradient-text">MY BUXAR</span>
-        </div>
-        <div className="hidden md:flex items-center gap-6">
-          {['Inspiration', 'Features', 'FAQ'].map(link => (
-            <a key={link} className="text-sm text-muted-foreground hover:text-foreground transition-colors cursor-pointer">{link}</a>
-          ))}
-        </div>
-        <div className="flex items-center gap-3">
-          <button className="text-muted-foreground hover:text-foreground cursor-pointer p-2"><Settings size={18} /></button>
-          <button className="text-muted-foreground hover:text-foreground cursor-pointer p-2"><User size={18} /></button>
-          <button
-            className="flex items-center gap-1.5 px-4 py-1.5 rounded-full text-xs font-bold cursor-pointer"
-            style={{ background: 'linear-gradient(135deg, #FBBF24, #A78BFA)', color: '#07071A' }}
-          >
-            <Crown size={12} /> Premium
-          </button>
-        </div>
-      </nav>
 
       {/* Hero Content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-8 pb-16">
@@ -76,7 +64,7 @@ export default function HeroSection() {
           transition={{ delay: 0.2, duration: 0.6 }}
           className="text-4xl md:text-6xl lg:text-7xl font-black text-center leading-tight mb-4"
         >
-          Explore the Essence of{' '}
+          Welcome To {' '}
           <span className="gradient-text">Buxar</span>
         </motion.h1>
 
@@ -87,7 +75,6 @@ export default function HeroSection() {
           className="text-base md:text-lg max-w-lg text-center mb-10"
           style={{ color: '#94A3B8' }}
         >
-          Discover sacred ghats, historic battlefields, and vibrant local life — all in one place.
         </motion.p>
 
         {/* Central Search Hub */}
@@ -95,7 +82,11 @@ export default function HeroSection() {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5, type: 'spring', damping: 20 }}
-          className="glass w-full max-w-2xl mx-auto overflow-hidden"
+          className="glass w-full max-w-2xl mx-auto overflow-hidden rounded-2xl border border-white/20 backdrop-blur-xl"
+          style={{
+            boxShadow: '0 0 40px rgba(139, 92, 246, 0.4), 0 0 80px rgba(139, 92, 246, 0.2), 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.2)',
+            backgroundColor: 'rgba(255, 255, 255, 0.15)',
+          }}
         >
           {/* Tab selector */}
           <div className="flex border-b" style={{ borderColor: 'rgba(255,255,255,0.07)' }}>
@@ -106,9 +97,9 @@ export default function HeroSection() {
                 <button
                   key={tab.id}
                   onClick={() => setActiveTab(tab.id)}
-                  className="flex-1 flex items-center justify-center gap-2 py-3.5 text-xs font-medium transition-all cursor-pointer select-none relative"
+                  className="flex-1 flex items-center justify-center gap-2 py-3.5 text-xs font-bold transition-all cursor-pointer select-none relative"
                   style={{
-                    color: isActive ? tab.color : '#6B7280',
+                    color: isActive ? tab.color : '#ffffff',
                     background: isActive ? `${tab.color}11` : 'transparent',
                   }}
                 >
@@ -134,44 +125,27 @@ export default function HeroSection() {
               placeholder={`Find me the best ${activeTab === 'restaurants' ? 'restaurant' : activeTab === 'hospitals' ? 'hospital' : activeTab === 'education' ? 'school' : 'hotel'} near the station...`}
               value={searchQuery}
               onChange={e => setSearchQuery(e.target.value)}
-              className="w-full bg-transparent text-sm text-foreground placeholder:text-muted-foreground outline-none resize-none"
+              className="w-full bg-transparent text-sm text-white font-bold placeholder:text-white/70 placeholder:font-bold outline-none resize-none"
             />
             <div className="flex items-center justify-between mt-3">
-              <button className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer">
+              <button className="flex items-center gap-1.5 text-xs text-white font-bold hover:text-white/80 transition-colors cursor-pointer">
                 <Paperclip size={14} /> Attach
               </button>
-              <button
-                onClick={() => navigate('/map')}
-                className="btn-neon px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2"
-              >
-                <MapPin size={14} /> Plan my trip
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  className="bg-primary/20 hover:bg-primary/30 text-primary p-2 rounded-lg transition-colors cursor-pointer"
+                  onClick={() => navigate('/chat')}
+                >
+                  <Search size={16} />
+                </button>
+                <button
+                  onClick={() => navigate('/map')}
+                  className="btn-neon px-5 py-2.5 rounded-xl text-xs font-bold flex items-center gap-2"
+                >
+                  <MapPin size={14} /> Plan my trip
+                </button>
+              </div>
             </div>
-          </div>
-        </motion.div>
-
-        {/* Trending Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.7 }}
-          className="w-full max-w-2xl mt-8"
-        >
-          <h3 className="text-micro text-muted-foreground mb-3 px-1">🔥 Trending in Buxar</h3>
-          <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
-            {trending.map((t, i) => (
-              <motion.div
-                key={t.title}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 + i * 0.08, type: 'spring', damping: 20 }}
-                className="glass card-hover flex-shrink-0 px-4 py-3 flex items-center gap-2.5 cursor-pointer"
-                style={{ borderRadius: 14 }}
-              >
-                <span className="text-lg">{t.emoji}</span>
-                <span className="text-xs font-medium text-foreground whitespace-nowrap">{t.title}</span>
-              </motion.div>
-            ))}
           </div>
         </motion.div>
       </div>

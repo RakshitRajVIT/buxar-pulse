@@ -4,6 +4,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { AnimatePresence, motion } from "framer-motion";
+import TopNav from "@/components/TopNav";
 import Index from "./pages/Index";
 import MapExplorer from "./pages/MapExplorer";
 import Services from "./pages/Services";
@@ -42,6 +43,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <TopNav />
         <AnimatedRoutes />
       </BrowserRouter>
     </TooltipProvider>

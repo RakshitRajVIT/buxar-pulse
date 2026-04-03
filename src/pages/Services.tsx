@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { places, categories, type Place } from '@/data/places';
 import BottomSheet from '@/components/BottomSheet';
-import BottomNav from '@/components/BottomNav';
 
 const filters = [
   { id: 'all', label: 'All', color: '#4F46E5' },
@@ -162,7 +161,6 @@ export default function Services() {
       </div>
 
       <BottomSheet place={selectedPlace} onClose={() => setSelectedPlace(null)} />
-      <BottomNav />
     </div>
   );
 }

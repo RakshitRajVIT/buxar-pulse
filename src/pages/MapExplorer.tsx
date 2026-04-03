@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { places, categories, type Place } from '@/data/places';
 import PlaceCard from '@/components/PlaceCard';
 import BottomSheet from '@/components/BottomSheet';
-import BottomNav from '@/components/BottomNav';
 
 function MapPin({ place, color, onClick }: { place: Place; color: string; onClick: () => void }) {
   const cat = categories.find(c => c.id === place.category);
@@ -158,7 +157,6 @@ export default function MapExplorer() {
       </div>
 
       <BottomSheet place={selectedPlace} onClose={() => setSelectedPlace(null)} />
-      <BottomNav />
     </div>
   );
 }
