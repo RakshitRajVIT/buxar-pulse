@@ -47,15 +47,6 @@ export default function HeroSection() {
       {/* Hero Content */}
       <div className="relative z-10 flex-1 flex flex-col items-center justify-center px-4 pt-8 pb-16">
         {/* Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.3 }}
-          className="glass-pill px-5 py-1.5 mb-6"
-          style={{ border: '1px solid rgba(79,70,229,0.4)', background: 'rgba(79,70,229,0.1)', color: '#A78BFA', fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase' }}
-        >
-          
-        </motion.div>
 
         {/* Title */}
         <motion.h1
@@ -150,10 +141,10 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      {/* Stats Banner at bottom */}
-      {/* <div className="relative z-10">
+      Stats Banner at bottom */
+       <div className="relative z-10">
         <StatsBanner />
-      </div> */}
+      </div>
 
       {/* Floating AI Chatbot Button */}
       <motion.button

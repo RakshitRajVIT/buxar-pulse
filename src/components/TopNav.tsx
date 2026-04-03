@@ -33,7 +33,7 @@ export default function TopNav() {
       <div className="flex items-center justify-between px-3 py-2">
         {/* Logo */}
         <div className="text-white font-bold text-base">
-          <span className="gradient-text">Buxar</span>
+          <span className="gradient-text">My Buxar</span>
         </div>
 
         {/* Desktop Navigation */}
