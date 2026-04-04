@@ -7,8 +7,8 @@ const tabs = [
   { id: 'map', label: 'Map', icon: Map, path: '/map' },
   { id: 'explore', label: 'Explore', icon: Compass, path: '/' },
   { id: 'services', label: 'Services', icon: Wrench, path: '/services' },
-  { id: 'events', label: 'Events', icon: Calendar, path: '/events' },
-  { id: 'profile', label: 'Profile', icon: User, path: '/profile' },
+  // { id: 'events', label: 'Events', icon: Calendar, path: '/events' },
+  // { id: 'profile', label: 'Profile', icon: User, path: '/profile' },
 ];
 
 export default function TopNav() {
@@ -21,6 +21,11 @@ export default function TopNav() {
     navigate(path);
     setIsOpen(false);
   };
+    // Keep map explorer immersive by hiding the floating nav on this route.
+  if (location.pathname === '/map') {
+    return null;
+  }
+
 
   return (
     <motion.nav

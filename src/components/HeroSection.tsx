@@ -141,8 +141,8 @@ export default function HeroSection() {
         </motion.div>
       </div>
 
-      Stats Banner at bottom */
-       <div className="relative z-10">
+      {/* Stats Banner at bottom */}
+      <div className="relative z-10 md:hidden">
         <StatsBanner />
       </div>
 
