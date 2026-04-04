@@ -19,14 +19,12 @@ export const isFirebaseConfigured = Boolean(
 
 const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 
-export const auth = getAuth(app);
+export const auth = isFirebaseConfigured ? getAuth(app) : null;
 
-// Admin email list - anyone with these emails can manage services
 const ADMIN_EMAILS = new Set([
 	'rakshitraj2323@gmail.com',
 	'prastut08@gmail.com',
-    'aryanarya5507@gmail.com',
-	// Add more admin emails here as needed
+	'aryanarya5507@gmail.com',
 ]);
 
 export function isAdminEmail(email: string | null): boolean {
@@ -35,7 +33,7 @@ export function isAdminEmail(email: string | null): boolean {
 }
 
 export async function signInWithGoogle(): Promise<User | null> {
-	if (!isFirebaseConfigured) {
+	if (!isFirebaseConfigured || !auth) {
 		console.error('Firebase not configured');
 		return null;
 	}
@@ -52,6 +50,7 @@ export async function signInWithGoogle(): Promise<User | null> {
 }
 
 export async function logout(): Promise<void> {
+	if (!auth) return;
 	try {
 		await signOut(auth);
 	} catch (error) {
@@ -61,7 +60,7 @@ export async function logout(): Promise<void> {
 }
 
 export function observeAuthState(callback: (user: User | null) => void) {
-	if (!isFirebaseConfigured) {
+	if (!isFirebaseConfigured || !auth) {
 		callback(null);
 		return () => {};
 	}

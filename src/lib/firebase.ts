@@ -1,6 +1,5 @@
-import { initializeApp } from 'firebase/app';
-import { getApps } from 'firebase/app';
-import { getDatabase, type Database } from 'firebase/database';
+import { initializeApp, getApps } from 'firebase/app';
+import { getDatabase } from 'firebase/database';
 import { getFirestore } from 'firebase/firestore';
 import { getStorage } from 'firebase/storage';
 
@@ -22,7 +21,6 @@ export const isFirebaseConfigured = Boolean(
 
 const app = getApps().length ? getApps()[0] : initializeApp(firebaseConfig);
 
-export const db = getFirestore(app);
-export const storage = getStorage(app);
-export const realtimeDb: Database | null =
-	isFirebaseConfigured && firebaseConfig.databaseURL ? getDatabase(app) : null;
+export const db = isFirebaseConfigured ? getFirestore(app) : null;
+export const storage = isFirebaseConfigured ? getStorage(app) : null;
+export const realtimeDb = isFirebaseConfigured && firebaseConfig.databaseURL ? getDatabase(app) : null;

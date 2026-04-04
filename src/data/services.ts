@@ -23,7 +23,6 @@ const allowedCategories = new Set(['tourism', 'plumbers', 'electricians', 'docto
 
 function normalizeCategory(value?: string): string {
   if (!value) return 'tourism';
-
   const input = value.trim().toLowerCase();
   const aliases: Record<string, string> = {
     plumber: 'plumbers',
@@ -31,7 +30,6 @@ function normalizeCategory(value?: string): string {
     doctor: 'doctors',
     hotel: 'hotels',
   };
-
   const normalized = aliases[input] ?? input;
   return allowedCategories.has(normalized) ? normalized : 'tourism';
 }
@@ -46,9 +44,6 @@ function toNumber(value: unknown, fallback = 0): number {
 }
 
 function mapServiceRecord(record: FirebaseServiceRecord, fallbackId: string): Place {
-  const lat = toNumber(record.lat, 25.5648);
-  const lng = toNumber(record.lng, 83.9767);
-
   return {
     id: String(record.id ?? fallbackId),
     name: record.name?.trim() || 'Unnamed Service',
@@ -59,8 +54,8 @@ function mapServiceRecord(record: FirebaseServiceRecord, fallbackId: string): Pl
     isOpen: Boolean(record.isOpen),
     phone: record.phone?.trim() || undefined,
     image: record.photoUrl?.trim() || record.image?.trim() || undefined,
-    lat,
-    lng,
+    lat: toNumber(record.lat, 25.5648),
+    lng: toNumber(record.lng, 83.9767),
     googleMapsUrl: record.googleMapsUrl?.trim() || undefined,
   };
 }
@@ -78,9 +73,7 @@ export async function fetchServices(): Promise<Place[]> {
 
     const raw = snapshot.val() as Record<string, FirebaseServiceRecord> | FirebaseServiceRecord[];
     const entries = Array.isArray(raw)
-      ? raw
-          .filter(Boolean)
-          .map((item, index) => [String(index), item] as const)
+      ? raw.filter(Boolean).map((item, index) => [String(index), item] as const)
       : Object.entries(raw);
 
     const mapped = entries
