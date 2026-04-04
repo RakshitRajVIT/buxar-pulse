@@ -8,6 +8,7 @@ import TopNav from "@/components/TopNav";
 import Index from "./pages/Index";
 import MapExplorer from "./pages/MapExplorer";
 import Services from "./pages/Services";
+import Profile from "./pages/Profile";
 import ChatBot from "./pages/ChatBot";
 import NotFound from "./pages/NotFound";
 
@@ -29,6 +30,7 @@ function AnimatedRoutes() {
           <Route path="/" element={<Index />} />
           <Route path="/map" element={<MapExplorer />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/chat" element={<ChatBot />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

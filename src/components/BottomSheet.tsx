@@ -53,6 +53,14 @@ export default function BottomSheet({ place, onClose }: Props) {
               className="relative mx-4 h-[200px] rounded-2xl overflow-hidden"
               style={{ background: `linear-gradient(135deg, ${color}44, #0F0F2E)` }}
             >
+              {place.image ? (
+                <img
+                  src={place.image}
+                  alt={place.name}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  loading="lazy"
+                />
+              ) : null}
               <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a1e] to-transparent" />
               <button
                 onClick={onClose}
@@ -109,7 +117,7 @@ export default function BottomSheet({ place, onClose }: Props) {
             {/* Google Maps button */}
             <div className="px-4 pb-8 mt-4">
               <a
-                href={`https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lng}`}
+                href={place.googleMapsUrl || `https://www.google.com/maps/search/?api=1&query=${place.lat},${place.lng}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="btn-neon flex items-center justify-center w-full h-[52px] rounded-[14px] text-[15px] font-bold"

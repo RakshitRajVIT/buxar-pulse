@@ -8,7 +8,7 @@ const tabs = [
   { id: 'explore', label: 'Explore', icon: Compass, path: '/' },
   { id: 'services', label: 'Services', icon: Wrench, path: '/services' },
   // { id: 'events', label: 'Events', icon: Calendar, path: '/events' },
-  // { id: 'profile', label: 'Profile', icon: User, path: '/profile' },
+  { id: 'profile', label: 'Profile', icon: User, path: '/profile' },
 ];
 
 export default function TopNav() {

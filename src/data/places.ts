@@ -8,6 +8,7 @@ export interface Place {
   isOpen: boolean;
   phone?: string;
   image?: string;
+  googleMapsUrl?: string;
   lat: number;
   lng: number;
 }

@@ -1,8 +1,9 @@
-import { useState, useMemo } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { ArrowLeft, MapPin, Star, Phone } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { places, categories, type Place } from '@/data/places';
+import { categories, type Place } from '@/data/places';
+import { fetchServices } from '@/data/services';
 import BottomSheet from '@/components/BottomSheet';
 
 const filters = [
@@ -39,6 +40,14 @@ function ServiceCard({ place, index, onClick }: { place: Place; index: number; o
     >
       {/* Photo */}
       <div className="relative h-[140px] overflow-hidden" style={{ background: `linear-gradient(135deg, ${color}33, #0F0F2E)` }}>
+        {place.image ? (
+          <img
+            src={place.image}
+            alt={place.name}
+            className="absolute inset-0 w-full h-full object-cover"
+            loading="lazy"
+          />
+        ) : null}
         <div className="absolute inset-0 bg-gradient-to-t from-[#0F0F2E] to-transparent" />
         <div
           className="absolute top-3 left-3 w-9 h-9 rounded-full flex items-center justify-center text-sm"
@@ -83,17 +92,38 @@ export default function Services() {
   const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState('all');
   const [selectedPlace, setSelectedPlace] = useState<Place | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [places, setPlaces] = useState<Place[]>([]);
+  const [isFetching, setIsFetching] = useState(true);
+  const [isFiltering, setIsFiltering] = useState(false);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const load = async () => {
+      setIsFetching(true);
+      const data = await fetchServices();
+      if (isMounted) {
+        setPlaces(data);
+        setIsFetching(false);
+      }
+    };
+
+    load();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   const filtered = useMemo(() => {
     if (activeFilter === 'all') return places;
     return places.filter(p => p.category === activeFilter);
-  }, [activeFilter]);
+  }, [activeFilter, places]);
 
   const handleFilterChange = (id: string) => {
     setActiveFilter(id);
-    setLoading(true);
-    setTimeout(() => setLoading(false), 600);
+    setIsFiltering(true);
+    setTimeout(() => setIsFiltering(false), 300);
   };
 
   return (
@@ -145,9 +175,13 @@ export default function Services() {
 
       {/* Grid */}
       <div className="px-4 mt-2">
-        {loading ? (
+        {isFetching || isFiltering ? (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3.5">
             {Array.from({ length: 6 }).map((_, i) => <SkeletonCard key={i} />)}
+          </div>
+        ) : filtered.length === 0 ? (
+          <div className="glass rounded-2xl p-6 text-center text-muted-foreground">
+            No services found for this filter yet.
           </div>
         ) : (
           <AnimatePresence mode="popLayout">
